@@ -1,7 +1,8 @@
 <?php
 
-namespace App\UseCases\LicenseOffers;
-use App\Enums\License;
+namespace App\Modules\License\UseCase;
+use App\Modules\License\Dto\GetLicenseOffersInputDto;
+use App\Modules\License\Enum\License;
 
 final class GetLicenseOffers
 {

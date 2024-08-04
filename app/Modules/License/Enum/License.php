@@ -1,5 +1,5 @@
 <?php
-namespace App\Enums;
+namespace App\Modules\License\Enum;
 
 enum License: string {
     case THEME_COMPOSER_FREELANCER = 'theme-composer-freelancer';

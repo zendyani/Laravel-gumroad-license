@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\UseCases;
 
-use App\Enums\License;
-use App\Enums\LicenseGroup;
-use App\UseCases\LicenseOffers\GetLicenseOffers;
-use App\UseCases\LicenseOffers\GetLicenseOffersInputDto;
+use App\Modules\License\Dto\GetLicenseOffersInputDto;
+use App\Modules\License\Enum\License;
+use App\Modules\License\Enum\LicenseGroup;
+use App\Modules\License\UseCase\GetLicenseOffers;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
