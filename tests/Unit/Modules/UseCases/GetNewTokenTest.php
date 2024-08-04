@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\UseCases;
+namespace Tests\Unit\Modules\UseCases;
 
 use App\Models\FigmaUser;
 use App\Models\License;

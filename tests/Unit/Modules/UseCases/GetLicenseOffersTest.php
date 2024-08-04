@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\UseCases;
+namespace Tests\Unit\Modules\UseCases;
 
 use App\Modules\License\Dto\GetLicenseOffersInputDto;
 use App\Modules\License\Enum\License;
