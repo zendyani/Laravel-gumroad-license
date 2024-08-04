@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('uses');
             $table->string('product_code', 255);
             $table->timestamp('sale_timestamp');
-            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('subscription_ended_at')->nullable();
             $table->timestamp('subscription_cancelled_at')->nullable();
             $table->timestamp('subscription_failed_at')->nullable();
