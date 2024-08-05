@@ -17,7 +17,10 @@ class FigmaUserFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id' => $this->faker->uuid,
+            'api_key' => $this->faker->unique()->sha256,
+            'figma_id' => $this->faker->unique()->uuid,
+            'figma_name' => $this->faker->name,
         ];
     }
 }

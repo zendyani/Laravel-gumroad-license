@@ -24,6 +24,6 @@ class LicenseOfferControllerTest extends TestCase
 
         $response = $this->json('GET', "/api/v1/license-offers/{$licenseGroup}");
 
-        $response->assertStatus(400);
+        $response->assertStatus(422);
     }
 }

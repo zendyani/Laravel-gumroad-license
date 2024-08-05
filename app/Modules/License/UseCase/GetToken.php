@@ -2,6 +2,8 @@
 
 namespace App\Modules\License\UseCase;
 
+use App\Models\FigmaUser;
+use App\Modules\License\Dto\FigmaUserDto;
 use App\Modules\License\Dto\GetTokenInputDto;
 use App\Modules\License\Exception\InvalidInputException;
 use App\Modules\License\Port\LicenseServiceInterface;
@@ -43,11 +45,9 @@ final class GetToken
             $apiKey = $this->apiKeyService->generate();
 
             // Create user
-            $user = $this->repository->save([
-                'api_key' => $apiKey,
-                'figma_id' => $input->getId(),
-                'figma_name' => $input->getName()
-            ]);
+            $figmaUser = new FigmaUserDto($apiKey, $input->getId(), $input->getName());
+
+            $user = $this->repository->save($figmaUser);
         }
 
         return ["api-key" => $user?->api_key, 'ispremium' => $ispremium];

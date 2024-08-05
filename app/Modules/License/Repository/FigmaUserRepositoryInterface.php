@@ -2,6 +2,7 @@
 
 namespace App\Modules\License\Repository;
 use App\Models\FigmaUser;
+use App\Modules\License\Dto\FigmaUserDto;
 
 interface FigmaUserRepositoryInterface {
     /**
@@ -11,9 +12,9 @@ interface FigmaUserRepositoryInterface {
     public function findByFigmaId(string $id): ?FigmaUser;
 
     /**
-     * @param array $data
+     * @param FigmaUserDto $data
      * @return \App\Models\FigmaUser
      */
-    public function save(array $data): FigmaUser;
+    public function save(FigmaUserDto $data): FigmaUser;
     
 }

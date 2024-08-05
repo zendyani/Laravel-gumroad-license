@@ -9,6 +9,10 @@ enum License: string {
     case THUMBLISHER_TEAM = 'thumblisher-team';
     case THUMBLISHER_BUSINESS = 'thumblisher-business';
 
+    public static function values() {
+        return array_column(License::cases(),'value');
+    }
+
     public function details() {
         return match($this) {
             self::THEME_COMPOSER_FREELANCER => ['group' => LicenseGroup::THEME_COMPOSER, 'name' => 'Theme Composer Freelancer', 'seats' => 2],

@@ -4,6 +4,7 @@ namespace Tests\Unit\Modules\UseCases;
 
 use App\Models\FigmaUser;
 use App\Models\License;
+use App\Modules\License\Dto\FigmaUserDto;
 use App\Modules\License\Dto\GetTokenInputDto;
 use App\Modules\License\Exception\InvalidInputException;
 use App\Modules\License\Port\ApiKeyServiceInterface;
@@ -82,13 +83,10 @@ class GetNewTokenTest extends TestCase
         $user->api_key = "randomapikey";
         $user->figma_id = $input->getId();
         $user->figma_name = $input->getName();
+        $figmaUser = new FigmaUserDto($user->api_key, $user->figma_id, $user->figma_name);
 
         $repositoryMock->method('save')
-            ->with([
-                'api_key' => "randomapikey",
-                'figma_id' => $user->figma_id,
-                'figma_name' => $user->figma_name
-            ])
+            ->with($figmaUser)
             ->willReturn($user);
 
         $repositoryMock->method('findByFigmaId')

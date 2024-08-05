@@ -15,5 +15,5 @@ interface ApiKeyServiceInterface {
      * @param string $key
      * @return bool
      */
-    public function validate(string $key): bool ;
+    public function isValid(string $key): bool ;
 }

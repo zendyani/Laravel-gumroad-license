@@ -23,7 +23,7 @@ class LicenseOfferController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return response()->json($validator->errors(), 422);
         }
 
         $input = new GetLicenseOffersInputDto(LicenseGroup::from($licenseGroup));
