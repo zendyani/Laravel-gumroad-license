@@ -65,7 +65,7 @@ Gumroad License Manager is a Laravel application designed to manage licenses for
 #### Get License Offers
 Retrieve license offers for a specific license group.
 
-- **URL**: `/v1/license-offers/{licenseGroup}`
+- **URL**: `/api/v1/license-offers/{licenseGroup}`
 - **Method**: `GET`
 - **Parameters**:
   - `licenseGroup`: The group of licenses to retrieve offers for. Must be a valid license group.
@@ -84,7 +84,7 @@ Route::prefix('v1')->group(function () {
 #### Get Token
 Generate a token for a Figma user based on their license.
 
-- **URL**: `/v1/token`
+- **URL**: `/api/v1/token`
 - **Method**: `POST`
 - **Request Body**:
   - `id` (string, required): The Figma user ID.
