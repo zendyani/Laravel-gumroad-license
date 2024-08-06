@@ -1,66 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Gumroad License Manager
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Requirements](#requirements)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [API Endpoints](#api-endpoints)
+    - [License Offer Endpoints](#license-offer-endpoints)
+    - [Token Endpoints](#token-endpoints)
+7. [Testing](#testing)
+8. [Linting](#linting)
+9. [License](#license)
+10. [TODO](#todo)
 
-## About Laravel
+## Introduction
+Gumroad License Manager is a Laravel application designed to manage licenses for Figma users purchased via Gumroad. This project allows users to register, add licenses, and manage their premium status based on the latest licenses they own. The system supports multiple users per license and multiple licenses per user, providing a robust solution for managing Figma product licenses.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
+- **License Management**: Users can add their Gumroad licenses to the system, which stores all relevant details such as product information, purchase details, and usage.
+- **Premium Status**: The system determines and updates users' premium status based on the latest active license.
+- **Multiple Licenses and Seats**: Supports multiple licenses for different products and multiple seats per license, allowing shared use among users.
+- **API Integration**: Integrates with Gumroad API to validate and retrieve license information.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requirements
+- PHP ^8.2
+- Composer
+- Node.js & NPM/Yarn (for frontend assets)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone git@github.com:zendyani/Laravel-gumroad-license.git
+   cd Laravel-gumroad-license
+   ```
 
-## Learning Laravel
+2. Install dependencies:
+   ```bash
+   composer install
+   ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3. Run post-installation scripts:
+   ```bash
+   composer run post-root-package-install
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+4. Create and set up the database:
+   ```bash
+   composer run post-create-project-cmd
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Usage
+1. Start the development server:
+   ```bash
+   php artisan serve
+   ```
 
-## Laravel Sponsors
+2. Access the application at `http://localhost:8000`.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## API Endpoints
 
-### Premium Partners
+### License Offer Endpoints
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### Get License Offers
+Retrieve license offers for a specific license group.
 
-## Contributing
+- **URL**: `/v1/license-offers/{licenseGroup}`
+- **Method**: `GET`
+- **Parameters**:
+  - `licenseGroup`: The group of licenses to retrieve offers for. Must be a valid license group.
+- **Responses**:
+  - `200 OK`: Returns the license offers for the specified group.
+  - `422 Unprocessable Entity`: Validation error for an invalid license group.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```php
+Route::prefix('v1')->group(function () {
+    Route::get('/license-offers/{licenseGroup}', LicenseOfferController::class);
+});
+```
 
-## Code of Conduct
+### Token Endpoints
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Get Token
+Generate a token for a Figma user based on their license.
 
-## Security Vulnerabilities
+- **URL**: `/v1/token`
+- **Method**: `POST`
+- **Request Body**:
+  - `id` (string, required): The Figma user ID.
+  - `name` (string, required): The Figma user name.
+  - `code` (string, required): The product code. Must be a valid license code.
+- **Responses**:
+  - `200 OK`: Returns the generated token.
+  - `422 Unprocessable Entity`: Validation error for invalid input data.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```php
+Route::prefix('v1')->group(function () {
+    Route::post('/token', TokenController::class);
+});
+```
+
+## Testing
+Run the test suite:
+```bash
+php artisan test
+```
+
+## Linting
+Run PHP CS Fixer:
+```bash
+composer lint
+```
+
+## TODO
+- **Integrate Gumroad API**: Implement the integration with Gumroad API to validate and retrieve license information.
+- **Add Endpoint for License Addition**: Develop an endpoint to enable users to add new licenses to the system, capturing all relevant details for proper management and validation.
+- **Event System**: 
+  - **Send Notifications on License Addition**: Implement an event system to send notifications when a new license is added.
+  - **Send Notifications on License Expiry**: Implement notifications for when a license is nearing its expiry date.
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License.
