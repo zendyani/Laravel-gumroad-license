@@ -3,7 +3,6 @@
 namespace App\Modules\License\Port;
 
 interface ApiKeyServiceInterface {
-
     /**
      * Generates a UUID as the API key.
      * @return string

@@ -1,0 +1,9 @@
+# PHP Stan (https://phpstan.org/) config file
+# Level 8 tells PHPStan to be the strictest.
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 5
+    paths:
+        - app

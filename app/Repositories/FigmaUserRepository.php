@@ -6,23 +6,18 @@ use App\Models\FigmaUser;
 use App\Modules\License\Dto\FigmaUserDto;
 use App\Modules\License\Repository\FigmaUserRepositoryInterface;
 
-class FigmaUserRepository implements FigmaUserRepositoryInterface
-{
+class FigmaUserRepository implements FigmaUserRepositoryInterface {
     /**
-     * @param string $id
-     * @return null|FigmaUser
+     * @inheritDoc
      */
-    public function findByFigmaId(string $id): ?FigmaUser
-    {
+    public function findByFigmaId(string $id): ?FigmaUser {
         return FigmaUser::where('figma_id', $id)->first();
     }
 
     /**
-     * @param FigmaUserDto $data
-     * @return FigmaUser
+     * @inheritDoc
      */
-    public function save(FigmaUserDto $data): FigmaUser
-    {
+    public function save(FigmaUserDto $data): FigmaUser {
         $user = FigmaUser::where('figma_id', $data->getFigmaId())->first();
 
         if (!$user) {

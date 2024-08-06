@@ -4,16 +4,14 @@ namespace App\Http\Requests;
 
 use App\Rules\ValidLicense;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class TokenRequest extends FormRequest
-{
+class TokenRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
+    public function authorize(): bool {
         return true;
     }
 
@@ -22,8 +20,7 @@ class TokenRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
             'id' => 'required|string|max:50',
             'name' => 'required|string|max:50',
@@ -31,8 +28,7 @@ class TokenRequest extends FormRequest
         ];
     }
 
-    protected function failedValidation(Validator $validator)
-    {
+    protected function failedValidation(Validator $validator) {
         $errors = $validator->errors();
 
         throw new HttpResponseException(

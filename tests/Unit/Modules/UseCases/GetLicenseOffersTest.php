@@ -2,18 +2,16 @@
 
 namespace Tests\Unit\Modules\UseCases;
 
-use App\Modules\License\Dto\GetLicenseOffersInputDto;
+use PHPUnit\Framework\TestCase;
 use App\Modules\License\Enum\License;
+use PHPUnit\Framework\Attributes\Test;
 use App\Modules\License\Enum\LicenseGroup;
 use App\Modules\License\UseCase\GetLicenseOffers;
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
+use App\Modules\License\Dto\GetLicenseOffersInputDto;
 
-class GetLicenseOffersTest extends TestCase
-{
+class GetLicenseOffersTest extends TestCase {
     #[Test]
-    public function it_return_thumblisher_license_list(): void
-    {
+    public function it_return_thumblisher_license_list(): void {
         // Arrange
         $input = new GetLicenseOffersInputDto(LicenseGroup::THUMBLISHER);
 
@@ -26,8 +24,7 @@ class GetLicenseOffersTest extends TestCase
     }
 
     #[Test]
-    public function it_return_themecomposer_license_list()
-    {
+    public function it_return_themecomposer_license_list() {
         // Arrange
         $input = new GetLicenseOffersInputDto(LicenseGroup::THEME_COMPOSER);
 

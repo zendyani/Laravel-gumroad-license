@@ -3,7 +3,8 @@
 namespace App\Modules\License\Dto;
 
 class FigmaUserDto {
-    public function __construct(private string $apiKey, private string $figmaId, private string $figmaName) {}
+    public function __construct(private string $apiKey, private string $figmaId, private string $figmaName) {
+    }
 
     public function getApiKey() {
         return $this->apiKey;

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\License\Enum;
 
 enum License: string {
@@ -9,11 +10,11 @@ enum License: string {
     case THUMBLISHER_TEAM = 'thumblisher-team';
     case THUMBLISHER_BUSINESS = 'thumblisher-business';
 
-    public static function values() {
-        return array_column(License::cases(),'value');
+    public static function values(): array {
+        return array_column(License::cases(), 'value');
     }
 
-    public function details() {
+    public function details(): array {
         return match($this) {
             self::THEME_COMPOSER_FREELANCER => ['group' => LicenseGroup::THEME_COMPOSER, 'name' => 'Theme Composer Freelancer', 'seats' => 2],
             self::THEME_COMPOSER_TEAM => ['group' => LicenseGroup::THEME_COMPOSER, 'name' => 'Theme Composer Team', 'seats' => 10],
@@ -24,7 +25,7 @@ enum License: string {
         };
     }
 
-    public static function filterByGroup(LicenseGroup $group):  array {
-        return array_values(array_filter(self::cases(), fn($license) => $license->details()['group'] === $group ));
+    public static function filterByGroup(LicenseGroup $group): array {
+        return array_values(array_filter(self::cases(), fn ($license) => $license->details()['group'] === $group));
     }
 }

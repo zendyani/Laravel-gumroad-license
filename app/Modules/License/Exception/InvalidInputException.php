@@ -2,4 +2,5 @@
 
 namespace App\Modules\License\Exception;
 
-class InvalidInputException extends \Exception {}
+class InvalidInputException extends \Exception {
+}

@@ -4,14 +4,11 @@ namespace App\Services;
 
 use App\Modules\License\Port\LicenseServiceInterface;
 
-class LicenseService implements LicenseServiceInterface
-{
+class LicenseService implements LicenseServiceInterface {
     /**
-     * Summary of isValid
-     * @param string $license
-     * @return bool
+     * @inheritDoc
      */
-    public function isValid(string $license): bool{
+    public function isValid(string $license): bool {
         return true;
     }
 }

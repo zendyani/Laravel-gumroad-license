@@ -2,21 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\FigmaUser;
-use App\Modules\License\Repository\LicenseRepositoryInterface;
 use App\Models\License;
+use App\Models\FigmaUser;
 use App\Modules\License\Enum\License as LicenseType;
+use App\Modules\License\Repository\LicenseRepositoryInterface;
 
-class LicenseRepository implements LicenseRepositoryInterface
-{
+class LicenseRepository implements LicenseRepositoryInterface {
     /**
-     * Summary of findByUserAndProduct
-     * @param string $userId
-     * @param \App\Modules\License\Enum\License $productName
-     * @return void
+     * @inheritDoc
      */
-    public function findByUserAndProduct(string $userId, LicenseType $productName): ?License
-    {
+    public function findByUserAndProduct(string $userId, LicenseType $productName): ?License {
         // Find the user by ID
         $figmaUser = FigmaUser::find($userId);
 

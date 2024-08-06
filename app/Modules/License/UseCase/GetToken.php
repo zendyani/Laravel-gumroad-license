@@ -2,17 +2,15 @@
 
 namespace App\Modules\License\UseCase;
 
-use App\Models\FigmaUser;
 use App\Modules\License\Dto\FigmaUserDto;
 use App\Modules\License\Dto\GetTokenInputDto;
-use App\Modules\License\Exception\InvalidInputException;
-use App\Modules\License\Port\LicenseServiceInterface;
-use App\Modules\License\Repository\FigmaUserRepositoryInterface;
 use App\Modules\License\Port\ApiKeyServiceInterface;
+use App\Modules\License\Port\LicenseServiceInterface;
+use App\Modules\License\Exception\InvalidInputException;
 use App\Modules\License\Repository\LicenseRepositoryInterface;
+use App\Modules\License\Repository\FigmaUserRepositoryInterface;
 
-final class GetToken
-{
+final class GetToken {
     public function __construct(
         private FigmaUserRepositoryInterface $repository,
         private LicenseRepositoryInterface $licenseRepository,
@@ -26,8 +24,7 @@ final class GetToken
      * @param \App\Modules\License\Dto\GetTokenInputDto $input
      * @return array
      */
-    public function execute(GetTokenInputDto $input)
-    {
+    public function execute(GetTokenInputDto $input): array {
         $this->validateInput($input);
 
         $ispremium = false;
@@ -50,7 +47,7 @@ final class GetToken
             $user = $this->repository->save($figmaUser);
         }
 
-        return ["api-key" => $user?->api_key, 'ispremium' => $ispremium];
+        return ['api-key' => $user?->api_key, 'ispremium' => $ispremium];
 
     }
 
@@ -60,8 +57,7 @@ final class GetToken
      * @param GetTokenInputDto $input The input DTO containing Figma user information.
      * @throws InvalidInputException if the input data is invalid.
      */
-    private function validateInput(GetTokenInputDto $input): void
-    {
+    private function validateInput(GetTokenInputDto $input): void {
         $id = $input->getId();
         $name = $input->getName();
 

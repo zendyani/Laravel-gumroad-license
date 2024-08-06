@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\TokenRequest;
-use App\Modules\License\Dto\GetTokenInputDto;
 use App\Modules\License\Enum\License;
 use App\Modules\License\UseCase\GetToken;
-use Illuminate\Http\Request;
+use App\Modules\License\Dto\GetTokenInputDto;
 
-class TokenController extends Controller
-{
+class TokenController extends Controller {
     public function __construct(
         protected GetToken $command
     ) {
@@ -18,8 +19,7 @@ class TokenController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(TokenRequest $request)
-    {
+    public function __invoke(TokenRequest $request): JsonResponse {
         // The request is automatically validated before this point
         $data = $request->validated();
 
@@ -28,8 +28,11 @@ class TokenController extends Controller
         $figmaName = $data['name'];
         $productCode = License::from($data['code']);
 
-        
+
         $input = new GetTokenInputDto($figmaId, $figmaName, $productCode);
-        return $this->command->execute($input);
+        $result = $this->command->execute($input);
+
+        // Return the result as a JSON response
+        return response()->json($result);
     }
 }

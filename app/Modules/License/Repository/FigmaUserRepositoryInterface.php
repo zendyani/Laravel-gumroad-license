@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Modules\License\Repository;
+
 use App\Models\FigmaUser;
 use App\Modules\License\Dto\FigmaUserDto;
 
@@ -16,5 +17,5 @@ interface FigmaUserRepositoryInterface {
      * @return \App\Models\FigmaUser
      */
     public function save(FigmaUserDto $data): FigmaUser;
-    
+
 }
