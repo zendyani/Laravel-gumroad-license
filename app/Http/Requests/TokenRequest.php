@@ -22,8 +22,8 @@ class TokenRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'id' => 'required|string|max:50',
-            'name' => 'required|string|max:50',
+            'id' => ['required','string','max:150'],
+            'name' => ['required','string','max:150'],
             'code' => ['required', 'string', new ValidLicense()],
         ];
     }
