@@ -11,20 +11,23 @@ class FigmaUserRepository implements FigmaUserRepositoryInterface {
      * @inheritDoc
      */
     public function findByFigmaId(string $id): ?FigmaUser {
-        return FigmaUser::where('figma_id', $id)->first();
+        return FigmaUser::query()->where('figma_id', $id)->first();
     }
 
     /**
      * @inheritDoc
      */
     public function save(FigmaUserDto $data): FigmaUser {
-        $user = FigmaUser::where('figma_id', $data->getFigmaId())->first();
+        $user = FigmaUser::query()->where('figma_id', $data->getFigmaId())->first();
 
         if (!$user) {
             $user = new FigmaUser();
         }
 
-        $user->fill($data->all());
+        $user->api_key = $data->getApiKey();
+        $user->figma_id = $data->getFigmaId();
+        $user->figma_name = $data->getFigmaName();
+
         $user->save();
 
         return $user;
