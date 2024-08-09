@@ -35,7 +35,7 @@ final class GetToken {
         if ($user) {
             $license = $this->licenseRepository->findByUserAndProduct($user->id, $input->getProductCode());
             if ($license) {
-                $ispremium = $this->licenseService->isValid($license->license);
+                $ispremium = $this->licenseService->isValid($license->license, $input->getProductCode());
             }
         } else {
             // Generate api-key

@@ -40,7 +40,6 @@ class TokenControllerTest extends TestCase {
         ]);
     }
 
-
     #[Test]
     public function it_returns_apiKey_and_ispremium_true_for_valid_request_and_user_with_license() {
         // Create necessary data using factories
