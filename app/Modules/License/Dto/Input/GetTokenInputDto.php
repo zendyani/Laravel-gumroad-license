@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\License\Dto;
+namespace App\Modules\License\Dto\Input;
 
 use App\Modules\License\Enum\License;
 

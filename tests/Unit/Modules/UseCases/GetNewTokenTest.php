@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use App\Modules\License\Dto\FigmaUserDto;
 use App\Modules\License\UseCase\GetToken;
-use App\Modules\License\Dto\GetTokenInputDto;
+use App\Modules\License\Dto\Input\GetTokenInputDto;
 use App\Modules\License\Enum\License as LicenseType;
 use App\Modules\License\Port\ApiKeyServiceInterface;
 use App\Modules\License\Port\LicenseServiceInterface;

@@ -17,12 +17,4 @@ class FigmaUserDto {
     public function getFigmaName() {
         return $this->figmaName;
     }
-
-    public function all() {
-        return [
-            'api_key' => $this->apiKey,
-            'figma_id' => $this->figmaId,
-            'figma_name' => $this->figmaName
-        ];
-    }
 }

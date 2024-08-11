@@ -14,6 +14,10 @@ class FigmaUserRepository implements FigmaUserRepositoryInterface {
         return FigmaUser::query()->where('figma_id', $id)->first();
     }
 
+    public function findOneByApiKey(string $apiKey): ?FigmaUser {
+        return FigmaUser::query()->where('api_key', $apiKey)->first();
+    }
+
     /**
      * @inheritDoc
      */

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\License;
 use App\Models\FigmaUser;
 use App\Modules\License\Enum\License as LicenseType;
+use App\Modules\License\Dto\LicenseValidationContext;
 use App\Modules\License\Repository\LicenseRepositoryInterface;
 
 class LicenseRepository implements LicenseRepositoryInterface {
@@ -21,5 +22,12 @@ class LicenseRepository implements LicenseRepositoryInterface {
         }
 
         return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function saveAndAssociateToUser(LicenseValidationContext $context): bool {
+        return true;
     }
 }

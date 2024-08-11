@@ -7,7 +7,7 @@ use App\Rules\ValidLicenseGroup;
 use Illuminate\Http\JsonResponse;
 use App\Modules\License\Enum\LicenseGroup;
 use App\Modules\License\UseCase\GetLicenseOffers;
-use App\Modules\License\Dto\GetLicenseOffersInputDto;
+use App\Modules\License\Dto\Input\GetLicenseOffersInputDto;
 
 class LicenseOfferController extends Controller {
     public function __construct(protected GetLicenseOffers $command) {

@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\TokenRequest;
 use App\Modules\License\Enum\License;
 use App\Modules\License\UseCase\GetToken;
-use App\Modules\License\Dto\GetTokenInputDto;
+use App\Modules\License\Dto\Input\GetTokenInputDto;
 
 class TokenController extends Controller {
     public function __construct(

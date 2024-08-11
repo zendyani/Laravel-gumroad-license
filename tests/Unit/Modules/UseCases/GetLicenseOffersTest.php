@@ -7,7 +7,7 @@ use App\Modules\License\Enum\License;
 use PHPUnit\Framework\Attributes\Test;
 use App\Modules\License\Enum\LicenseGroup;
 use App\Modules\License\UseCase\GetLicenseOffers;
-use App\Modules\License\Dto\GetLicenseOffersInputDto;
+use App\Modules\License\Dto\Input\GetLicenseOffersInputDto;
 
 class GetLicenseOffersTest extends TestCase {
     #[Test]

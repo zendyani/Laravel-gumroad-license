@@ -3,7 +3,7 @@
 namespace App\Modules\License\UseCase;
 
 use App\Modules\License\Dto\FigmaUserDto;
-use App\Modules\License\Dto\GetTokenInputDto;
+use App\Modules\License\Dto\Input\GetTokenInputDto;
 use App\Modules\License\Port\ApiKeyServiceInterface;
 use App\Modules\License\Port\LicenseServiceInterface;
 use App\Modules\License\Exception\InvalidInputException;
@@ -21,7 +21,7 @@ final class GetToken {
 
     /**
      * Summary of execute
-     * @param \App\Modules\License\Dto\GetTokenInputDto $input
+     * @param \App\Modules\License\Dto\Input\GetTokenInputDto $input
      * @return array
      */
     public function execute(GetTokenInputDto $input): array {

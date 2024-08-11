@@ -2,20 +2,16 @@
 
 namespace App\Services;
 
-use App\Models\License;
 use Illuminate\Support\Facades\Http;
+use App\Modules\License\Dto\LicenseResponseDto;
 use App\Modules\License\Enum\License as LicenseType;
 use App\Modules\License\Port\LicenseServiceInterface;
 
 class LicenseService implements LicenseServiceInterface {
     /**
-     * Verifies the license with Gumroad and saves the data.
-     *
-     * @param string $license_key
-     * @param LicenseType $productCode
-     * @return License|false
+     * @inheritDoc
      */
-    protected function verifyAndSaveLicense(string $license_key, LicenseType $productCode) {
+    public function requestLicenseData(string $license_key, LicenseType $productCode): LicenseResponseDto|bool {
 
         $response = Http::post('https://api.gumroad.com/v2/licenses/verify', [
             'product_id' => $productCode->value,
@@ -26,28 +22,26 @@ class LicenseService implements LicenseServiceInterface {
             $data = $response->json();
 
             // Map the response data to the model's fillable attributes
-            $licenseData = [
-                'license' => $data['license_key'],
-                'email' => $data['purchase']['email'],
-                'product_permalink' => $data['purchase']['product_permalink'],
-                'product_name' => $data['purchase']['product_name'],
-                'price' => $data['purchase']['price'],
-                'ip_country' => $data['purchase']['ip_country'],
-                'recurrence' => $data['purchase']['recurrence'],
-                'uses' => $data['uses'],
-                'sale_timestamp' => $data['purchase']['sale_timestamp'],
-                'product_code' => $data['purchase']['product_id'],
-                'subscription_ended_at' => $data['purchase']['subscription_ended_at'] ?? null,
-                'subscription_cancelled_at' => $data['purchase']['subscription_cancelled_at'] ?? null,
-                'subscription_failed_at' => $data['purchase']['subscription_failed_at'] ?? null,
-            ];
+            $licenseData = new LicenseResponseDto(
+                (string) $data['license_key'],
+                (string) $data['purchase']['email'],
+                (string) $data['purchase']['product_name'],
+                (string) $data['purchase']['product_permalink'],
+                (string) $data['purchase']['short_product_id'],
+                (int) $data['purchase']['price'],
+                (string) $data['purchase']['recurrence'],
+                (string) $data['purchase']['ip_country'],
+                // $licenseModel->setSaleTimestamp($sale_timestamp),
+                $data['uses'],
+                $data['purchase']['subscription_ended_at'],
+                $data['purchase']['subscription_cancelled_at'],
+                $data['purchase']['subscription_failed_at'],
+            );
 
-            // Create and return the License model instance
-            return License::create($licenseData);
+            return $licenseData;
         }
 
         return false;
-
     }
 
     /**
@@ -55,13 +49,12 @@ class LicenseService implements LicenseServiceInterface {
      */
     public function isValid(string $license_key, LicenseType $productCode): bool {
         try {
-            $license = $this->verifyAndSaveLicense($license_key, $productCode);
+            $license = $this->requestLicenseData($license_key, $productCode);
 
             return $license &&
-                $license->success &&
-                $license->subscription_ended_at == null &&
-                $license->subscription_cancelled_at == null &&
-                $license->subscription_failed_at == null;
+                $license->getSubscriptionEndedAt() == null &&
+                $license->getSubscriptionCancelledAt() == null &&
+                $license->getSubscriptionFailedAt() == null;
 
         } catch (\Throwable $th) {
             throw $th;
