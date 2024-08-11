@@ -9,8 +9,7 @@ class LicenseAlreadyRegistredForCurrentUserValidator implements ValidatorInterfa
      * @param \App\Modules\License\Dto\LicenseValidationContext $context
      * @return LicenseValidationContext
      */
-    public function validate(LicenseValidationContext $context): LicenseValidationContext {
+    public function validate(LicenseValidationContext $context): void {
 
-        return $context;
     }
 }

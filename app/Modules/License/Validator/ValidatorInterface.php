@@ -6,8 +6,9 @@ use App\Modules\License\Dto\LicenseValidationContext;
 
 interface ValidatorInterface {
     /**
-     * @param \App\Modules\License\Validator\LicenseValidationContext $context
-     * @return \App\Modules\License\Validator\LicenseValidationContext
+     * Summary of validate
+     * @param \App\Modules\License\Dto\LicenseValidationContext $context
+     * @return void
      */
-    public function validate(LicenseValidationContext $context): LicenseValidationContext;
+    public function validate(LicenseValidationContext $context): void;
 }

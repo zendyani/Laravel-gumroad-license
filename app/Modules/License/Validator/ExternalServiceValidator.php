@@ -11,7 +11,7 @@ class ExternalServiceValidator implements ValidatorInterface {
     ) {
     }
 
-    public function validate(LicenseValidationContext $context): LicenseValidationContext {
+    public function validate(LicenseValidationContext $context): void {
         $response = $this->service->requestLicenseData($context->getLicenseKey(), $context->getProductCode());
 
         if (!$response || !$this->service->isValid($context->getLicenseKey(), $context->getProductCode())) {
@@ -19,6 +19,5 @@ class ExternalServiceValidator implements ValidatorInterface {
         }
 
         $context->setLicenseResponse($response);
-        return $context;
     }
 }

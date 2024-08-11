@@ -3,24 +3,30 @@
 namespace App\Modules\License\Service;
 
 use App\Modules\License\Dto\LicenseValidationContext;
+use App\Modules\License\Validator\UserExistsValidator;
+use App\Modules\License\Validator\ExternalServiceValidator;
 
 class LicenseValidationService {
-    /**
-     * @param array<\App\Modules\License\Validator\ValidatorInterface> $validators
-     */
-    public function __construct(private array $validators) {
+    private array $validators;
+
+    public function __construct(
+        UserExistsValidator $userExistsValidator,
+        ExternalServiceValidator $externalServiceValidator,
+    ) {
+        $this->validators = [
+            $userExistsValidator,
+            $externalServiceValidator,
+        ];
     }
 
     /**
      * @param \App\Modules\License\Dto\LicenseValidationContext $context
      * @return \App\Modules\License\Dto\LicenseValidationContext
      */
-    public function validate(LicenseValidationContext $context): LicenseValidationContext {
+    public function validate(LicenseValidationContext $context): void {
 
         foreach ($this->validators as $validator) {
-            $context = $validator->validate($context);
+            $validator->validate($context);
         }
-
-        return $context;
     }
 }
