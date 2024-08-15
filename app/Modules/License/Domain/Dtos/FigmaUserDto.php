@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\License\Dto;
+namespace App\Modules\License\Domain\Dtos;
 
 class FigmaUserDto {
     public function __construct(private string $apiKey, private string $figmaId, private string $figmaName) {

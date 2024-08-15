@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Modules\License\Infrastructure\Services;
 
 use Illuminate\Support\Str;
-use App\Modules\License\Port\ApiKeyServiceInterface;
+use App\Modules\License\Domain\Port\ApiKeyServiceInterface;
 
 class ApiKeyService implements ApiKeyServiceInterface {
     /**

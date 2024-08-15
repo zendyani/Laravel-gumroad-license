@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Closure;
-use App\Modules\License\Enum\LicenseGroup;
+use App\Modules\License\Domain\Enums\LicenseGroup;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class ValidLicenseGroup implements ValidationRule {

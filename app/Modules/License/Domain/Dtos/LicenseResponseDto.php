@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\License\Dto;
+namespace App\Modules\License\Domain\Dtos;
 
 class LicenseResponseDto {
     public function __construct(

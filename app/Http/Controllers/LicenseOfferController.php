@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Rules\ValidLicenseGroup;
 use Illuminate\Http\JsonResponse;
-use App\Modules\License\Enum\LicenseGroup;
-use App\Modules\License\UseCase\GetLicenseOffers;
-use App\Modules\License\Dto\Input\GetLicenseOffersInputDto;
+use Illuminate\Support\Facades\Bus;
+use App\Modules\License\Domain\Enums\LicenseGroup;
+use App\Modules\License\Domain\Dtos\Input\GetLicenseOffersInputDto;
+use App\Modules\License\Application\Commands\GetLicenseOffersCommand;
 
 class LicenseOfferController extends Controller {
-    public function __construct(protected GetLicenseOffers $command) {
-    }
-
     /**
-     * Handle the incoming request.
+     * Displaying license offers filtred by group name
+     * @param string $licenseGroup
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request, string $licenseGroup): JsonResponse {
+    public function __invoke(string $licenseGroup): JsonResponse {
+
         $validator = \Validator::make(['licenseGroup' => $licenseGroup], [
             'licenseGroup' => ['required', 'string', new ValidLicenseGroup()],
         ]);
@@ -25,10 +25,10 @@ class LicenseOfferController extends Controller {
             return response()->json($validator->errors(), 422);
         }
 
-        $input = new GetLicenseOffersInputDto(LicenseGroup::from($licenseGroup));
-        $result = $this->command->execute($input);
+        $command = new GetLicenseOffersCommand(new GetLicenseOffersInputDto(LicenseGroup::from($licenseGroup)));
 
-        // Return the result as a JSON response
+        $result = Bus::dispatch($command);
+
         return response()->json($result);
     }
 }

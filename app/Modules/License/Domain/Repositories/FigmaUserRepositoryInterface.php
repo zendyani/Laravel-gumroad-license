@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\License\Repository;
+namespace App\Modules\License\Domain\Repositories;
 
 use App\Models\FigmaUser;
-use App\Modules\License\Dto\FigmaUserDto;
+use App\Modules\License\Domain\Dtos\FigmaUserDto;
 
 interface FigmaUserRepositoryInterface {
     /**

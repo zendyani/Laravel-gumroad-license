@@ -3,20 +3,22 @@
 namespace Tests\Unit\Modules\UseCases;
 
 use PHPUnit\Framework\TestCase;
-use App\Modules\License\Enum\License;
 use PHPUnit\Framework\Attributes\Test;
-use App\Modules\License\Enum\LicenseGroup;
-use App\Modules\License\UseCase\GetLicenseOffers;
-use App\Modules\License\Dto\Input\GetLicenseOffersInputDto;
+use App\Modules\License\Domain\Enums\License;
+use App\Modules\License\Domain\Enums\LicenseGroup;
+use App\Modules\License\Domain\Dtos\Input\GetLicenseOffersInputDto;
+use App\Modules\License\Application\Commands\GetLicenseOffersCommand;
+use App\Modules\License\Application\CommandHandlers\GetLicenseOffersHandler;
 
 class GetLicenseOffersTest extends TestCase {
     #[Test]
     public function it_return_thumblisher_license_list(): void {
         // Arrange
         $input = new GetLicenseOffersInputDto(LicenseGroup::THUMBLISHER);
+        $command = new GetLicenseOffersCommand($input);
 
         // Act
-        $usecase = (new GetLicenseOffers())->execute($input);
+        $usecase = (new GetLicenseOffersHandler())->handle($command);
         $expected = License::filterByGroup(LicenseGroup::THUMBLISHER);
 
         // Assert
@@ -27,9 +29,10 @@ class GetLicenseOffersTest extends TestCase {
     public function it_return_themecomposer_license_list() {
         // Arrange
         $input = new GetLicenseOffersInputDto(LicenseGroup::THEME_COMPOSER);
+        $command = new GetLicenseOffersCommand($input);
 
         // Act
-        $usecase = (new GetLicenseOffers())->execute($input);
+        $usecase = (new GetLicenseOffersHandler())->handle($command);
         $expected = License::filterByGroup(LicenseGroup::THEME_COMPOSER);
 
         // Assert

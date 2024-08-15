@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\License\Enum;
+namespace App\Modules\License\Domain\Enums;
 
 enum LicenseGroup: string {
     case THEME_COMPOSER = 'theme-composer';

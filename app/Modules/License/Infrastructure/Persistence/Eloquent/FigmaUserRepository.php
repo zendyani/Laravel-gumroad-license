@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Modules\License\Infrastructure\Persistence\Eloquent;
 
 use App\Models\FigmaUser;
-use App\Modules\License\Dto\FigmaUserDto;
-use App\Modules\License\Repository\FigmaUserRepositoryInterface;
+use App\Modules\License\Domain\Dtos\FigmaUserDto;
+use App\Modules\License\Domain\Repositories\FigmaUserRepositoryInterface;
 
 class FigmaUserRepository implements FigmaUserRepositoryInterface {
     /**

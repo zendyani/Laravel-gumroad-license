@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\License\Exception;
+namespace App\Modules\License\Domain\Exceptions;
 
 class InvalidInputException extends \Exception {
 }

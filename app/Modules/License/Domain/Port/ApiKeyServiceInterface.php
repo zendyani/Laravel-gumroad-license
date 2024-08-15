@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\License\Port;
+namespace App\Modules\License\Domain\Port;
 
 interface ApiKeyServiceInterface {
     /**

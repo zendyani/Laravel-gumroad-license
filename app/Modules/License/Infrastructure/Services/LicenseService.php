@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Modules\License\Infrastructure\Services;
 
 use Illuminate\Support\Facades\Http;
-use App\Modules\License\Dto\LicenseResponseDto;
-use App\Modules\License\Enum\License as LicenseType;
-use App\Modules\License\Port\LicenseServiceInterface;
+use App\Modules\License\Domain\Dtos\LicenseResponseDto;
+use App\Modules\License\Domain\Enums\License as LicenseType;
+use App\Modules\License\Domain\Port\LicenseServiceInterface;
 
 class LicenseService implements LicenseServiceInterface {
     /**

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Modules\License\Infrastructure\Persistence\Eloquent;
 
 use App\Models\License;
 use App\Models\FigmaUser;
-use App\Modules\License\Enum\License as LicenseType;
-use App\Modules\License\Dto\LicenseValidationContext;
-use App\Modules\License\Repository\LicenseRepositoryInterface;
+use App\Modules\License\Domain\Enums\License as LicenseType;
+use App\Modules\License\Domain\Dtos\LicenseValidationContext;
+use App\Modules\License\Domain\Repositories\LicenseRepositoryInterface;
 
 class LicenseRepository implements LicenseRepositoryInterface {
     /**

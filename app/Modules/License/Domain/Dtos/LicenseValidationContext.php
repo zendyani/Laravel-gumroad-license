@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\License\Dto;
+namespace App\Modules\License\Domain\Dtos;
 
 use App\Models\FigmaUser;
 use App\Modules\License\Enum\License;

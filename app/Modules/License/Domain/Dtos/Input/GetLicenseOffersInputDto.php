@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\License\Dto\Input;
+namespace App\Modules\License\Domain\Dtos\Input;
 
-use App\Modules\License\Enum\LicenseGroup;
+use App\Modules\License\Domain\Enums\LicenseGroup;
 
 class GetLicenseOffersInputDto {
     public function __construct(private LicenseGroup $group) {
