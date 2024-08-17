@@ -3,8 +3,8 @@
 namespace App\Modules\License\Domain\Dtos;
 
 use App\Models\FigmaUser;
-use App\Modules\License\Enum\License;
-use App\Modules\License\Dto\Input\ValidateLicenseInputDto;
+use App\Modules\License\Domain\Enums\License;
+use App\Modules\License\Domain\Dtos\Input\ValidateLicenseInputDto;
 
 class LicenseValidationContext {
     private ?FigmaUser $user;

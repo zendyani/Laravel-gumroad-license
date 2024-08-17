@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Modules\License\Validator;
+namespace App\Modules\License\Application\Validator;
 
-use App\Modules\License\Dto\LicenseValidationContext;
-use App\Modules\License\Repository\FigmaUserRepositoryInterface;
+use App\Modules\License\Domain\Dtos\LicenseValidationContext;
+use App\Modules\License\Domain\Repositories\FigmaUserRepositoryInterface;
 
 class UserExistsValidator implements ValidatorInterface {
     public function __construct(private FigmaUserRepositoryInterface $repository) {
     }
 
     /**
-     * Summary of validate
-     * @param \App\Modules\License\Dto\LicenseValidationContext $context
-     * @throws \Exception
-     * @return \App\Modules\License\Dto\LicenseValidationContext
+     * @inheritDoc
      */
     public function validate(LicenseValidationContext $context): void {
         $user = $this->repository->findOneByApiKey($context->getApiKey());

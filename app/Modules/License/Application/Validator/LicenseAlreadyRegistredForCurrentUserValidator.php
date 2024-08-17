@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Modules\License\Validator;
+namespace App\Modules\License\Application\Validator;
 
-use App\Modules\License\Dto\LicenseValidationContext;
+use App\Modules\License\Domain\Dtos\LicenseValidationContext;
 
 class LicenseAlreadyRegistredForCurrentUserValidator implements ValidatorInterface {
     /**
-     * @param \App\Modules\License\Dto\LicenseValidationContext $context
-     * @return LicenseValidationContext
+     * @inheritDoc
      */
     public function validate(LicenseValidationContext $context): void {
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\License\Service;
+namespace App\Modules\License\Application\Services;
 
-use App\Modules\License\Dto\LicenseValidationContext;
-use App\Modules\License\Validator\UserExistsValidator;
-use App\Modules\License\Validator\ExternalServiceValidator;
+use App\Modules\License\Domain\Dtos\LicenseValidationContext;
+use App\Modules\License\Application\Validator\UserExistsValidator;
+use App\Modules\License\Application\Validator\ExternalServiceValidator;
 
 class LicenseValidationService {
     private array $validators;
@@ -20,8 +20,8 @@ class LicenseValidationService {
     }
 
     /**
-     * @param \App\Modules\License\Dto\LicenseValidationContext $context
-     * @return \App\Modules\License\Dto\LicenseValidationContext
+     * @param \App\Modules\License\Domain\Dtos\LicenseValidationContext $context
+     * @return void
      */
     public function validate(LicenseValidationContext $context): void {
 

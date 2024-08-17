@@ -14,9 +14,9 @@ use App\Modules\License\Domain\Enums\License as LicenseType;
 use App\Modules\License\Domain\Port\LicenseServiceInterface;
 use App\Modules\License\Application\Commands\GetTokenCommand;
 use App\Modules\License\Domain\Exceptions\InvalidInputException;
+use App\Modules\License\Application\CommandHandlers\GetTokenHandler;
 use App\Modules\License\Domain\Repositories\LicenseRepositoryInterface;
 use App\Modules\License\Domain\Repositories\FigmaUserRepositoryInterface;
-use App\Modules\License\Application\CommandHandlers\GetTokenCommandHandler;
 
 class GetNewTokenTest extends TestCase {
     private $apiKeyServiceMock;
@@ -47,7 +47,7 @@ class GetNewTokenTest extends TestCase {
 
         // Act
         $command = new GetTokenCommand($input);
-        (new GetTokenCommandHandler($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->handle($command);
+        (new GetTokenHandler($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->handle($command);
     }
 
     #[Test]
@@ -62,7 +62,7 @@ class GetNewTokenTest extends TestCase {
 
         // Act
         $command = new GetTokenCommand($input);
-        $response = (new GetTokenCommandHandler($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->handle($command);
+        $response = (new GetTokenHandler($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->handle($command);
 
         // Assert
         $this->assertFalse($response['ispremium']);
@@ -92,7 +92,7 @@ class GetNewTokenTest extends TestCase {
 
         // Act
         $command = new GetTokenCommand($input);
-        $response = (new GetTokenCommandHandler($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->handle($command);
+        $response = (new GetTokenHandler($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->handle($command);
 
         // Assert
         $this->assertArrayHasKey('api-key', $response);
@@ -135,7 +135,7 @@ class GetNewTokenTest extends TestCase {
 
         // Act
         $command = new GetTokenCommand($input);
-        $response = (new GetTokenCommandHandler($userRepositoryMock, $licenseRepositoryMock, $this->apiKeyServiceMock, $licenseServiceMock))->handle($command);
+        $response = (new GetTokenHandler($userRepositoryMock, $licenseRepositoryMock, $this->apiKeyServiceMock, $licenseServiceMock))->handle($command);
 
         // Assert
         /**

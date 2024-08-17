@@ -11,7 +11,7 @@ use App\Modules\License\Domain\Exceptions\InvalidInputException;
 use App\Modules\License\Domain\Repositories\LicenseRepositoryInterface;
 use App\Modules\License\Domain\Repositories\FigmaUserRepositoryInterface;
 
-class GetTokenCommandHandler {
+class GetTokenHandler {
     public function __construct(
         private FigmaUserRepositoryInterface $repository,
         private LicenseRepositoryInterface $licenseRepository,

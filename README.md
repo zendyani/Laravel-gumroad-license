@@ -113,8 +113,6 @@ composer lint
 ```
 
 ## TODO
-- **Integrate Gumroad API**: Implement the integration with Gumroad API to validate and retrieve license information.
-- **Add Endpoint for License Addition**: Develop an endpoint to enable users to add new licenses to the system, capturing all relevant details for proper management and validation.
 - **Event System**: 
   - **Send Notifications on License Addition**: Implement an event system to send notifications when a new license is added.
   - **Send Notifications on License Expiry**: Implement notifications for when a license is nearing its expiry date.
