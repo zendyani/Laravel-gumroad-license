@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Modules\License\Enum\License as LicenseType;
+use App\Modules\License\Domain\Enums\License as LicenseType;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\License>

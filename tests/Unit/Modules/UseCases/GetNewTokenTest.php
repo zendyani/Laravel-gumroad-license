@@ -4,19 +4,19 @@ namespace Tests\Unit\Modules\UseCases;
 
 use App\Models\License;
 use App\Models\FigmaUser;
+use App\Modules\License\Application\CommandHandlers\GetTokenCommandHandler;
+use App\Modules\License\Application\Commands\GetTokenCommand;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use App\Modules\License\Dto\FigmaUserDto;
-use App\Modules\License\UseCase\GetToken;
-use App\Modules\License\Dto\Input\GetTokenInputDto;
-use App\Modules\License\Enum\License as LicenseType;
-use App\Modules\License\Port\ApiKeyServiceInterface;
-use App\Modules\License\Port\LicenseServiceInterface;
-
-use App\Modules\License\Exception\InvalidInputException;
-use App\Modules\License\Repository\LicenseRepositoryInterface;
-use App\Modules\License\Repository\FigmaUserRepositoryInterface;
+use App\Modules\License\Domain\Dtos\FigmaUserDto;
+use App\Modules\License\Domain\Dtos\Input\GetTokenInputDto;
+use App\Modules\License\Domain\Port\ApiKeyServiceInterface;
+use App\Modules\License\Domain\Enums\License as LicenseType;
+use App\Modules\License\Domain\Port\LicenseServiceInterface;
+use App\Modules\License\Domain\Exceptions\InvalidInputException;
+use App\Modules\License\Domain\Repositories\LicenseRepositoryInterface;
+use App\Modules\License\Domain\Repositories\FigmaUserRepositoryInterface;
 
 class GetNewTokenTest extends TestCase {
     private $apiKeyServiceMock;
@@ -46,7 +46,8 @@ class GetNewTokenTest extends TestCase {
         $this->expectException(InvalidInputException::class);
 
         // Act
-        (new GetToken($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->execute($input);
+        $command = new GetTokenCommand($input);
+        (new GetTokenCommandHandler($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->handle($command);
     }
 
     #[Test]
@@ -60,7 +61,8 @@ class GetNewTokenTest extends TestCase {
             ->willReturn(null);
 
         // Act
-        $response = (new GetToken($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->execute($input);
+        $command = new GetTokenCommand($input);
+        $response = (new GetTokenCommandHandler($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->handle($command);
 
         // Assert
         $this->assertFalse($response['ispremium']);
@@ -89,7 +91,8 @@ class GetNewTokenTest extends TestCase {
             ->willReturn(null);
 
         // Act
-        $response = (new GetToken($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->execute($input);
+        $command = new GetTokenCommand($input);
+        $response = (new GetTokenCommandHandler($repositoryMock, $this->licenseRepositoryMock, $this->apiKeyServiceMock, $this->licenseServiceMock))->handle($command);
 
         // Assert
         $this->assertArrayHasKey('api-key', $response);
@@ -131,7 +134,8 @@ class GetNewTokenTest extends TestCase {
             ->willReturn(true);
 
         // Act
-        $response = (new GetToken($userRepositoryMock, $licenseRepositoryMock, $this->apiKeyServiceMock, $licenseServiceMock))->execute($input);
+        $command = new GetTokenCommand($input);
+        $response = (new GetTokenCommandHandler($userRepositoryMock, $licenseRepositoryMock, $this->apiKeyServiceMock, $licenseServiceMock))->handle($command);
 
         // Assert
         /**

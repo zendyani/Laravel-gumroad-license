@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Modules\License\UseCase;
+namespace App\Modules\License\Application\CommandHandlers;
 
-use App\Modules\License\Dto\FigmaUserDto;
-use App\Modules\License\Dto\Input\GetTokenInputDto;
-use App\Modules\License\Port\ApiKeyServiceInterface;
-use App\Modules\License\Port\LicenseServiceInterface;
-use App\Modules\License\Exception\InvalidInputException;
-use App\Modules\License\Repository\LicenseRepositoryInterface;
-use App\Modules\License\Repository\FigmaUserRepositoryInterface;
+use App\Modules\License\Domain\Dtos\FigmaUserDto;
+use App\Modules\License\Domain\Dtos\Input\GetTokenInputDto;
+use App\Modules\License\Domain\Port\ApiKeyServiceInterface;
+use App\Modules\License\Domain\Port\LicenseServiceInterface;
+use App\Modules\License\Application\Commands\GetTokenCommand;
+use App\Modules\License\Domain\Exceptions\InvalidInputException;
+use App\Modules\License\Domain\Repositories\LicenseRepositoryInterface;
+use App\Modules\License\Domain\Repositories\FigmaUserRepositoryInterface;
 
-final class GetToken {
+class GetTokenCommandHandler {
     public function __construct(
         private FigmaUserRepositoryInterface $repository,
         private LicenseRepositoryInterface $licenseRepository,
@@ -19,36 +20,30 @@ final class GetToken {
     ) {
     }
 
-    /**
-     * Summary of execute
-     * @param \App\Modules\License\Dto\Input\GetTokenInputDto $input
-     * @return array
-     */
-    public function execute(GetTokenInputDto $input): array {
-        $this->validateInput($input);
+    public function handle(GetTokenCommand $command) {
+        $this->validateInput($command->input);
 
         $ispremium = false;
 
         // Check if user exist
-        $user = $this->repository->findByFigmaId($input->getId());
+        $user = $this->repository->findByFigmaId($command->input->getId());
 
         if ($user) {
-            $license = $this->licenseRepository->findByUserAndProduct($user->id, $input->getProductCode());
+            $license = $this->licenseRepository->findByUserAndProduct($user->id, $command->input->getProductCode());
             if ($license) {
-                $ispremium = $this->licenseService->isValid($license->license, $input->getProductCode());
+                $ispremium = $this->licenseService->isValid($license->license, $command->input->getProductCode());
             }
         } else {
             // Generate api-key
             $apiKey = $this->apiKeyService->generate();
 
             // Create user
-            $figmaUser = new FigmaUserDto($apiKey, $input->getId(), $input->getName());
+            $figmaUser = new FigmaUserDto($apiKey, $command->input->getId(), $command->input->getName());
 
             $user = $this->repository->save($figmaUser);
         }
 
         return ['api-key' => $user?->api_key, 'ispremium' => $ispremium];
-
     }
 
     /**

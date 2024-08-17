@@ -7,7 +7,7 @@ use App\Models\License;
 use App\Models\FigmaUser;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Modules\License\Enum\License as LicenseType;
+use App\Modules\License\Domain\Enums\License as LicenseType;
 
 class TokenControllerTest extends TestCase {
     use RefreshDatabase;

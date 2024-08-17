@@ -6,11 +6,13 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\ServiceProvider;
 use App\Modules\License\Domain\Port\ApiKeyServiceInterface;
 use App\Modules\License\Domain\Port\LicenseServiceInterface;
+use App\Modules\License\Application\Commands\GetTokenCommand;
 use App\Modules\License\Infrastructure\Services\ApiKeyService;
 use App\Modules\License\Infrastructure\Services\LicenseService;
 use App\Modules\License\Application\Commands\GetLicenseOffersCommand;
 use App\Modules\License\Domain\Repositories\LicenseRepositoryInterface;
 use App\Modules\License\Domain\Repositories\FigmaUserRepositoryInterface;
+use App\Modules\License\Application\CommandHandlers\GetTokenCommandHandler;
 use App\Modules\License\Application\CommandHandlers\GetLicenseOffersHandler;
 use App\Modules\License\Infrastructure\Persistence\Eloquent\LicenseRepository;
 use App\Modules\License\Infrastructure\Persistence\Eloquent\FigmaUserRepository;
@@ -36,5 +38,6 @@ class AppServiceProvider extends ServiceProvider {
     public function boot(): void {
         // Commands
         Bus::map([GetLicenseOffersCommand::class => GetLicenseOffersHandler::class]);
+        Bus::map([GetTokenCommand::class => GetTokenCommandHandler::class]);
     }
 }
