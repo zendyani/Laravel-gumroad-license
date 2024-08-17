@@ -4,8 +4,6 @@ namespace Tests\Unit\Modules\UseCases;
 
 use App\Models\License;
 use App\Models\FigmaUser;
-use App\Modules\License\Application\CommandHandlers\GetTokenCommandHandler;
-use App\Modules\License\Application\Commands\GetTokenCommand;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -14,9 +12,11 @@ use App\Modules\License\Domain\Dtos\Input\GetTokenInputDto;
 use App\Modules\License\Domain\Port\ApiKeyServiceInterface;
 use App\Modules\License\Domain\Enums\License as LicenseType;
 use App\Modules\License\Domain\Port\LicenseServiceInterface;
+use App\Modules\License\Application\Commands\GetTokenCommand;
 use App\Modules\License\Domain\Exceptions\InvalidInputException;
 use App\Modules\License\Domain\Repositories\LicenseRepositoryInterface;
 use App\Modules\License\Domain\Repositories\FigmaUserRepositoryInterface;
+use App\Modules\License\Application\CommandHandlers\GetTokenCommandHandler;
 
 class GetNewTokenTest extends TestCase {
     private $apiKeyServiceMock;
