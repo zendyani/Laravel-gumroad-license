@@ -2,25 +2,26 @@
 
 namespace App\Modules\License\Application\CommandHandlers;
 
-use App\Modules\License\Domain\Port\LicenseServiceInterface;
 use App\Modules\License\Domain\Dtos\LicenseValidationContext;
 use App\Modules\License\Domain\Exceptions\InvalidInputException;
 use App\Modules\License\Domain\Dtos\Input\ValidateLicenseInputDto;
 use App\Modules\License\Application\Services\LicenseValidationService;
 use App\Modules\License\Domain\Repositories\LicenseRepositoryInterface;
-use App\Modules\License\Domain\Repositories\FigmaUserRepositoryInterface;
 use App\Modules\License\Application\Commands\ValidateAndSaveLicenseCommand;
 
 class ValidateAndSaveLicenseHandler {
     public function __construct(
-        private FigmaUserRepositoryInterface $repository,
         private LicenseRepositoryInterface $licenseRepository,
-        private LicenseServiceInterface $licenseService,
         private LicenseValidationService $licenseValidationService
     ) {
     }
 
-    public function handle(ValidateAndSaveLicenseCommand $command) {
+    /**
+     * Summary of handle
+     * @param \App\Modules\License\Application\Commands\ValidateAndSaveLicenseCommand $command
+     * @return array{success: bool, msg: string}
+     */
+    public function handle(ValidateAndSaveLicenseCommand $command): array {
         $this->validateInput($command->input);
 
         $licenseContext = LicenseValidationContext::fromInputDto($command->input);
@@ -44,7 +45,7 @@ class ValidateAndSaveLicenseHandler {
         $licenseKey = $input->getLicenseKey();
         $productCode = $input->getProductCode();
 
-        if (empty($apiKey) || !is_string($apiKey) || empty($licenseKey) || !is_string($licenseKey) || !$productCode) {
+        if (empty($apiKey) || !is_string($apiKey) || empty($licenseKey) || !is_string($licenseKey)) {
             throw new InvalidInputException('Failed input validation');
         }
     }

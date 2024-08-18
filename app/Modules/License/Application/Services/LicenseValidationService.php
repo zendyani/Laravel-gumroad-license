@@ -7,6 +7,10 @@ use App\Modules\License\Application\Validator\UserExistsValidator;
 use App\Modules\License\Application\Validator\ExternalServiceValidator;
 
 class LicenseValidationService {
+    /**
+     * Summary of validators
+     * @var \App\Modules\License\Application\Validator\ValidatorInterface[]
+     */
     private array $validators;
 
     public function __construct(

@@ -8,15 +8,15 @@ class GetTokenInputDto {
     public function __construct(private string $id, private string $name, private License $productCode) {
     }
 
-    public function getId() {
+    public function getId(): string {
         return $this->id;
     }
 
-    public function getName() {
+    public function getName(): string {
         return $this->name;
     }
 
-    public function getProductCode() {
+    public function getProductCode(): License {
         return $this->productCode;
     }
 }

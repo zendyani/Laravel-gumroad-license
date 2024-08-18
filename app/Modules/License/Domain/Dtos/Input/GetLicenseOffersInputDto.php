@@ -7,7 +7,7 @@ use App\Modules\License\Domain\Enums\LicenseGroup;
 class GetLicenseOffersInputDto {
     public function __construct(private LicenseGroup $group) {
     }
-    public function getGroupName() {
+    public function getGroupName(): LicenseGroup {
         return $this->group;
     }
 }

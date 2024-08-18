@@ -10,10 +10,16 @@ enum License: string {
     case THUMBLISHER_TEAM = 'thumblisher-team';
     case THUMBLISHER_BUSINESS = 'thumblisher-business';
 
+    /**
+     * @return string[]
+     */
     public static function values(): array {
         return array_column(License::cases(), 'value');
     }
 
+    /**
+     * @return array{group: LicenseGroup, name: string, seats: int}
+     */
     public function details(): array {
         return match($this) {
             self::THEME_COMPOSER_FREELANCER => ['group' => LicenseGroup::THEME_COMPOSER, 'name' => 'Theme Composer Freelancer', 'seats' => 2],
@@ -25,6 +31,9 @@ enum License: string {
         };
     }
 
+    /**
+     * @return License[]
+     */
     public static function filterByGroup(LicenseGroup $group): array {
         return array_values(array_filter(self::cases(), fn ($license) => $license->details()['group'] === $group));
     }

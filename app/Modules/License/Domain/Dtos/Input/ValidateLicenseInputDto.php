@@ -8,15 +8,15 @@ class ValidateLicenseInputDto {
     public function __construct(private string $apiKey, private string $licenseKey, private License $productCode) {
     }
 
-    public function getApiKey() {
+    public function getApiKey(): string {
         return $this->apiKey;
     }
 
-    public function getLicenseKey() {
+    public function getLicenseKey(): string {
         return $this->licenseKey;
     }
 
-    public function getProductCode() {
+    public function getProductCode(): License {
         return $this->productCode;
     }
 }

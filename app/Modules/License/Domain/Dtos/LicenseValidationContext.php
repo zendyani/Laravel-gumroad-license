@@ -17,34 +17,34 @@ class LicenseValidationContext {
     ) {
     }
 
-    public static function fromInputDto(ValidateLicenseInputDto $input) {
+    public static function fromInputDto(ValidateLicenseInputDto $input): self {
         return new self($input->getApiKey(), $input->getLicenseKey(), $input->getProductCode());
     }
 
-    public function getApiKey() {
+    public function getApiKey(): string {
         return $this->apiKey;
     }
 
-    public function getLicenseKey() {
+    public function getLicenseKey(): string {
         return $this->licenseKey;
     }
 
-    public function getProductCode() {
+    public function getProductCode(): License {
         return $this->productCode;
     }
 
-    public function getUser() {
+    public function getUser(): ?FigmaUser {
         return $this->user;
     }
-    public function setUser($user) {
+    public function setUser(FigmaUser $user): void {
         $this->user = $user;
     }
 
-    public function getLicenseResponse() {
+    public function getLicenseResponse(): ?LicenseResponseDto {
         return $this->licenseResponse;
     }
 
-    public function setLicenseResponse($licenseResponse) {
+    public function setLicenseResponse(LicenseResponseDto $licenseResponse): void {
         $this->licenseResponse = $licenseResponse;
     }
 

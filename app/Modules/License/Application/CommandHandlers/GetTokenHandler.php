@@ -20,7 +20,12 @@ class GetTokenHandler {
     ) {
     }
 
-    public function handle(GetTokenCommand $command) {
+    /**
+     * Summary of handle
+     * @param \App\Modules\License\Application\Commands\GetTokenCommand $command
+     * @return array{api-key: string, ispremium: bool}
+     */
+    public function handle(GetTokenCommand $command): array {
         $this->validateInput($command->input);
 
         $ispremium = false;
@@ -43,7 +48,7 @@ class GetTokenHandler {
             $user = $this->repository->save($figmaUser);
         }
 
-        return ['api-key' => $user?->api_key, 'ispremium' => $ispremium];
+        return ['api-key' => $user->api_key, 'ispremium' => $ispremium];
     }
 
     /**

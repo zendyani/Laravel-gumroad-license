@@ -6,15 +6,15 @@ class FigmaUserDto {
     public function __construct(private string $apiKey, private string $figmaId, private string $figmaName) {
     }
 
-    public function getApiKey() {
+    public function getApiKey(): string {
         return $this->apiKey;
     }
 
-    public function getFigmaId() {
+    public function getFigmaId(): string {
         return $this->figmaId;
     }
 
-    public function getFigmaName() {
+    public function getFigmaName(): string {
         return $this->figmaName;
     }
 }
